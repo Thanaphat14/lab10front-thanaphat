@@ -1,33 +1,43 @@
 <script setup lang="ts">
 import Uploader from 'vue-media-upload'
-import {ref} from 'vue'
+import { ref } from 'vue'
+
 interface Props {
-    modelValue?: string[]
+  modelValue?: string
 }
+
 const props = withDefaults(defineProps<Props>(), {
-    modelValue: () => []
+  modelValue: ''
 })
-const convertStringToMedia = (str: string[]): any =>{
-    return str.map((element: string) => {
-        return{
-            name: element
-        }
-    })
-}
+
 const emit = defineEmits(['update:modelValue'])
-const convertMediaToString = (media: any): string[] => {
-    const output: string[] = []
-    media.forEach((element: any)=>{
-        output.push(element.name)
-    })
-    return output
+
+const convertStringToMedia = (str: string): any => {
+  return {
+    name: str
+  }
 }
-const media = ref(convertStringToMedia(props.modelValue))
+
+const convertMediaToString = (media: any): string => {
+  return media[0].name
+}
+
+const media = ref(props.modelValue ? [convertStringToMedia(props.modelValue)] : [])
 const uploadUrl = ref(import.meta.env.VITE_UPLOAD_URL)
+
 const onChanged = (files: any) => {
-    emit("update:modelValue", convertMediaToString(files))
+  if (files.length > 0) {
+    media.value = [files[0]] // Only keep the first file
+    emit('update:modelValue', convertMediaToString(files))
+  }
 }
 </script>
+
 <template>
-    <Uploader :sever="uploadUrl" @change="onChanged" :media="media"></Uploader>
+  <Uploader 
+    :server="uploadUrl" 
+    @change="onChanged" 
+    :media="media" 
+    :max="1"  
+  />
 </template>

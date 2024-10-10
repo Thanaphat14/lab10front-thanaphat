@@ -14,6 +14,7 @@ export interface Event {
 export interface Organizer {
   id: number
   name: string
+  images: string[]
 }
 
 export interface MessageState {

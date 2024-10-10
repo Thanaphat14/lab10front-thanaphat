@@ -21,6 +21,7 @@ const event = ref<Event>({
   organizer: {
     id: 0,
     name: '',
+    images: []
   },
   images: []
 })
