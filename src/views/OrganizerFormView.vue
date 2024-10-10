@@ -8,7 +8,6 @@ import { useMessageStore } from '@/stores/message'
 const organizer = ref<Organizer>({
   id: 0,
   name: '',
-  address: ''
 })
 const router = useRouter()
 const store = useMessageStore()

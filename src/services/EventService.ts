@@ -23,8 +23,8 @@ export default {
     keyword: string,
     perPage: number,
     page: number
-  ): Promise<AxiosResponse<EventItem[]>> {
-    return apiClient.get<EventItem[]>(
+  ): Promise<AxiosResponse<Event[]>> {
+    return apiClient.get<Event[]>(
       '/events?title=' + keyword + '&_limit=' + perPage + '&_page=' + page
     )
   }
