@@ -17,6 +17,8 @@ import OrganizerService from '@/services/OrganizerService'
 import OrganizerDetailView from '@/views/organizer/OrganizerDetailView.vue'
 import AddOrganizerView from '@/views/OrganizerFormView.vue'
 import { useOrganizerStore } from '@/stores/organizer'
+import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,20 +75,20 @@ const router = createRouter({
       ]
     },
     {
-      path: '/organizer',
+      path: '/organizers',
       name: 'organizer-list-view',
       component: OrganizerListView,
       props: (route) => ({ page: parseInt(route.query.page?.toString() || '1') })
     },
     {
-      path: '/organizer/:id',
+      path: '/organizers/:id',
       name: 'organizer-layout-view',
       component: OrganizerLayoutView,
       props: true,
       beforeEnter: (to) => {
         const id = parseInt(to.params.id as string)
         const eventStore = useOrganizerStore()
-        return OrganizerService.getEvent(id)
+        return OrganizerService.getOrganizer(id)
           .then((response) => {
             // need to setup the data for the event
             eventStore.setEvent(response.data)
@@ -130,6 +132,16 @@ const router = createRouter({
       path: '/add-organizer',
       name: 'add-organizer',
       component: AddOrganizerView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
     },
     {
       path: '/404/:resource',

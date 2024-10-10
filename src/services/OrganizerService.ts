@@ -1,6 +1,8 @@
-import axios from 'axios'
+import type { Organizer } from '@/types'
+import axios, { type AxiosResponse } from 'axios'
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL as string,
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -11,5 +13,11 @@ const apiClient = axios.create({
 export default {
   getOrganizers() {
     return apiClient.get('/organizers')
+  },
+  getOrganizer(id: number) {
+    return apiClient.get('/organizers/' + id)
+  },
+  saveOrganizer(organizer: Organizer) {
+    return apiClient.post('/organizers', organizer)
   }
 }

@@ -21,7 +21,7 @@ const props = defineProps({
 const page = computed(() => props.page)
 onMounted(() => {
   watchEffect(() => {
-    OrganizerService.getEvents(3, page.value)
+    OrganizerService.getOrganizers()
       .then((response) => {
         organizers.value = response.data
         totalOrganizers.value = response.headers['x-total-count']
@@ -36,7 +36,7 @@ onMounted(() => {
 <template>
   <h1>Organizer</h1>
   <!-- new element -->
-  <div class="flex flex-col items-center">
+  <main class="flex flex-col items-center">
     <OrganizerCard v-for="organizer in organizers" :key="organizer.id" :organizer="organizer" />
     <div class="pagination">
       <RouterLink
@@ -55,7 +55,7 @@ onMounted(() => {
         >Next Page &#62;</RouterLink
       >
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

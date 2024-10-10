@@ -59,12 +59,7 @@ function updateKeyword(value: string) {
   <!-- new element -->
   <main class="flex flex-col items-center">
     <div class="w-64">
-      <BaseInput
-        v-model="keyword"
-        type="text"
-        label="Search..." 
-        @input="updateKeyword" 
-      />
+      <BaseInput v-model="keyword" type="text" label="Search..." @input="updateKeyword" />
     </div>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <div class="pagination">
